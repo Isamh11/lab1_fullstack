@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Recipes</title>
+</head>
+<body>
+    
+    
+    <div class="content-wrapper">
+
+        <!-- Form for adding new recipes -->
+        <div class="form-container">
+            <h2>Add New Recipe</h2>
+            <form id="addRecipeForm">
+                <input type="text" id="title" name="title" placeholder="Title" required>
+                <textarea id="ingredients" name="ingredients" placeholder="Ingredients" required></textarea>
+                <textarea id="instructions" name="instructions" placeholder="Instructions" required></textarea>
+                <input type="number" id="cookingTime" name="cookingTime" placeholder="Cooking Time (in minutes)" required>
+                <button type="submit">Add Recipe</button>
+            </form>
+        </div>
+
+         <!-- Recipes Table will be populated here -->
+         <div id="recipesTable" class="table-container"></div>
+    </div>
+
+    <!-- Edit Recipe Modal -->
+    <div id="editRecipeModal" style="display:none;">
+        <div>
+            <h2>Edit Recipe</h2>
+            <form id="editRecipeForm">
+                <input type="hidden" id="editId">
+                <div>
+                    <label for="editTitle">Title:</label>
+                    <input type="text" id="editTitle" name="title" required>
+                </div>
+                <div>
+                    <label for="editIngredients">Ingredients:</label>
+                    <textarea id="editIngredients" name="ingredients" required></textarea>
+                </div>
+                <div>
+                    <label for="editInstructions">Instructions:</label>
+                    <textarea id="editInstructions" name="instructions" required></textarea>
+                </div>
+                <div>
+                    <label for="editCookingTime">Cooking Time:</label>
+                    <input type="number" id="editCookingTime" name="cookingTime" required>
+                </div>
+                <button type="submit">Save Changes</button>
+                <button type="button" onclick="closeEditModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="recipeScript.js"></script>
+</body>
+</html>
