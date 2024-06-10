@@ -14,9 +14,9 @@ function fetchRecipes() {
 
 function displayRecipes(recipes) {
     const container = document.getElementById('recipesTable');
-    container.innerHTML = ''; // Clear previous contents
+    container.innerHTML = ''; 
     const table = document.createElement('table');
-    table.classList.add('recipe-table'); // Add class to the table for styling
+    table.classList.add('recipe-table'); 
     table.innerHTML = `
         <tr class="recipe-table-header">
             <th>Title</th>
@@ -28,8 +28,7 @@ function displayRecipes(recipes) {
 
     recipes.forEach(recipe => {
         const row = table.insertRow();
-        row.classList.add('recipe-row'); // Add class to each row for styling
-        // Assign a data-id attribute to each row
+        row.classList.add('recipe-row'); 
         row.setAttribute('data-id', recipe._id);
         row.innerHTML = `
             <td>${recipe.title}</td>
@@ -50,11 +49,9 @@ function addRecipe(event) {
     const formData = new FormData(event.target);
     let recipe = Object.fromEntries(formData.entries());
 
-    // Assuming ingredients are submitted as a comma-separated string
-    // Splitting the string by commas to create an array
     recipe.ingredients = recipe.ingredients.split(',').map(ingredient => ingredient.trim()).filter(Boolean);
 
-    recipe.cookingTime = Number(recipe.cookingTime); // Ensure cookingTime is a number
+    recipe.cookingTime = Number(recipe.cookingTime); 
 
     fetch('http://localhost:5000/api/recipes', {
         method: 'POST',
@@ -112,7 +109,7 @@ function submitEditForm() {
     const cookingTime = document.getElementById('editCookingTime').value;
 
     // Split the ingredients string into an array by commas or spaces
-    ingredients = ingredients.split(/,|\s+/).filter(Boolean); // filter(Boolean) removes any empty strings from the array
+    ingredients = ingredients.split(/,|\s+/).filter(Boolean); 
 
     const updatedRecipe = { title, ingredients, instructions, cookingTime };
 
@@ -131,14 +128,13 @@ function submitEditForm() {
     })
     .then(updatedRecipe => {
         closeEditModal();
-        fetchRecipes(); // Refresh the table to show the updated details
+        fetchRecipes(); 
     })
     .catch(error => {
         console.error('Error updating recipe:', error);
         alert(error.message);
     });
 }
-
 
 function showEditModal() {
     document.getElementById('editRecipeModal').style.display = 'block';
@@ -147,8 +143,6 @@ function showEditModal() {
 function closeEditModal() {
     document.getElementById('editRecipeModal').style.display = 'none';
 }
-
-
 
 // Handle deleting a recipe optimistically
 function deleteRecipe(id) {
@@ -162,7 +156,6 @@ function deleteRecipe(id) {
     if (rowToDelete) {
         rowToDelete.parentNode.removeChild(rowToDelete);
     }
-
 
     // Proceed with the deletion request
     fetch(`http://localhost:5000/api/recipes/${id}`, {

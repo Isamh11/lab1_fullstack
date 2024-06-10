@@ -1,3 +1,8 @@
+
+
+// 111111111111111111111111
+
+
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
@@ -83,3 +88,12 @@ export const deleteRecipeById = async (id) => {
         throw new Error('Failed to delete recipe');
     }
 };
+
+
+
+function showEditModal() {
+    document.getElementById('editRecipeModal').style.display = 'block';
+}
+
+
+
