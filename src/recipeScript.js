@@ -62,7 +62,7 @@ function addRecipe(event) {
     })
     .then(response => {
         if (response.ok) {
-            fetchRecipes(); // Refresh the recipe list
+            fetchRecipes(); 
         } else {
             response.json().then(data => {
                 alert('Failed to add recipe: ' + (data.message || ''));
@@ -72,30 +72,25 @@ function addRecipe(event) {
     .catch(error => console.error('Error adding recipe:', error));
 }
 
-
 function editRecipe(id) {
-    // Find the row with the matching `data-id`
+
     const row = document.querySelector(`tr[data-id="${id}"]`);
     if (!row) return;
 
-    // Assuming the columns are in a specific order. Adjust these indices as needed.
     const title = row.cells[0].innerText;
     const ingredients = row.cells[1].innerText;
     const instructions = row.cells[2].innerText;
     const cookingTime = row.cells[3].innerText;
 
-    // Populate the form fields
     document.getElementById('editId').value = id;
     document.getElementById('editTitle').value = title;
     document.getElementById('editIngredients').value = ingredients;
     document.getElementById('editInstructions').value = instructions;
     document.getElementById('editCookingTime').value = cookingTime;
 
-    // Show the modal
     showEditModal();
 }
 
-// Ensure the form submission is handled outside of editRecipe to avoid multiple event listener bindings
 document.getElementById('editRecipeForm').addEventListener('submit', function(event) {
     event.preventDefault();
     submitEditForm();
@@ -108,7 +103,6 @@ function submitEditForm() {
     const instructions = document.getElementById('editInstructions').value;
     const cookingTime = document.getElementById('editCookingTime').value;
 
-    // Split the ingredients string into an array by commas or spaces
     ingredients = ingredients.split(/,|\s+/).filter(Boolean); 
 
     const updatedRecipe = { title, ingredients, instructions, cookingTime };
@@ -144,26 +138,25 @@ function closeEditModal() {
     document.getElementById('editRecipeModal').style.display = 'none';
 }
 
-// Handle deleting a recipe optimistically
+// Handle deleting a recipe 
 function deleteRecipe(id) {
     console.log('id:', id);
     if (!confirm('Are you sure you want to delete this recipe?')) {
         return;
     }
 
-    // remove the recipe from the UI
+    // remove the recipe 
     const rowToDelete = document.querySelector(`tr[data-id="${id}"]`);
     if (rowToDelete) {
         rowToDelete.parentNode.removeChild(rowToDelete);
     }
 
-    // Proceed with the deletion request
+
     fetch(`http://localhost:5000/api/recipes/${id}`, {
         method: 'DELETE',
     })
     .then(response => {
         if (!response.ok) {
-            // If the delete operation failed, refresh the list to revert the optimistic update
             fetchRecipes();
             alert('Recipe not found or delete failed.');
         }
